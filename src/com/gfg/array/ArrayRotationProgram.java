@@ -16,7 +16,7 @@ public class ArrayRotationProgram
             temp = inputArray[0];
             for (int j = 0; j < inputArray.length-1; j++)
             {
-                inputArray[j+1] = inputArray[j+1];
+                inputArray[j] = inputArray[j+1];
             }
 
             inputArray[inputArray.length - 1] = temp;

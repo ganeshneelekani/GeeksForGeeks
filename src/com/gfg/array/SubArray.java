@@ -35,7 +35,7 @@ class SubArray {
     public static void main(String[] args)
     {
         SubArray arraysum = new SubArray();
-        int arr[] = {-3,-2 ,0,-2,-3};
+        int arr[] = {5,4,9,-7,2,-17,-9,17};
         int n = arr.length;
         int sum = 0;
         arraysum.subArraySum(arr, n, sum);
