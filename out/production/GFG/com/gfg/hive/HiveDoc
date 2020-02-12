@@ -1,0 +1,57 @@
+CREATE VIEW emp_35000 AS
+SELECT * FROM employee
+WHERE salary>35000
+
+
+CREATE INDEX inedx_salary ON TABLE employee(salary)
+AS ‘org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler’;
+
+DROP INDEX index_salary ON employee;
+
+The goal of Hive indexing is to improve the speed of query lookup on certain columns of a table.
+
+CREATE TABLE table_name (column1 data_type, column2 data_type)
+PARTITIONED BY (partition1 data_type, partition2 data_type,….);
+
+CREATE TABLE table_tab1 (id INT, name STRING, dept STRING, yoj INT) PARTITIONED BY (year STRING);
+LOAD DATA LOCAL INPATH tab1’/clientdata/2009/file2’OVERWRITE INTO TABLE studentTab PARTITION (year='2009');
+LOAD DATA LOCAL INPATH tab1’/clientdata/2010/file3’OVERWRITE INTO TABLE studentTab PARTITION (year='2010');
+
+i. Hive Static Partitioning
+    Insert input data files individually into a partition table is Static Partition.
+    Usually when loading files (big files) into Hive tables static partitions are preferred.
+    Static Partition saves your time in loading data compared to dynamic partition.
+
+ii. Hive Dynamic Partitioning
+
+    Single insert to partition table is known as a dynamic partition.
+    Usually, dynamic partition loads the data from the non-partitioned table.
+    Dynamic Partition takes more time in loading data compared to static partition.
+
+4. Features of Bucketing in Hive
+
+Basically, this concept is based on hashing function on the bucketed column.
+Along with mod (by the total number of buckets).
+i. Where the hash_function depends on the type of the bucketing column.
+ii. However, the Records with the same bucketed column will always be stored in the same bucket.
+iii. Moreover,  to divide the table into buckets we use CLUSTERED BY clause.
+iv. Generally, in the table directory, each bucket is just a file, and Bucket numbering is 1-based.
+v. Along with Partitioning on Hive tables bucketing can be done and even without partitioning.
+vi. Moreover, Bucketed tables will create almost equally distributed data file parts
+
+CREATE TABLE bucketed_user(
+       firstname VARCHAR(64),
+       lastname  VARCHAR(64),
+       address   STRING,
+       city     VARCHAR(64),
+      state   VARCHAR(64),
+       post      STRING,
+       phone1    VARCHAR(64),
+       phone2    STRING,
+       email     STRING,
+       web       STRING
+       )
+      COMMENT 'A bucketed sorted user table'
+       PARTITIONED BY (country VARCHAR(64))
+      CLUSTERED BY (state) SORTED BY (city) INTO 32 BUCKETS
+       STORED AS SEQUENCEFILE;
