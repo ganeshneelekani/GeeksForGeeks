@@ -54,6 +54,7 @@ class PCImpl{
 
     LinkedList linkedList=new LinkedList();
     int capacity=2;
+
     public void producer() throws InterruptedException {
 
 
