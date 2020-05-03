@@ -42,7 +42,6 @@ public class TwoString {
                value="No";
            }
         }
-
         return value;
     }
 }
